@@ -1,8 +1,13 @@
 
 //  1) create list of words
 var wordlist = ["rock", "paper", "scissors"];
+var guesses = 13;
+var wrongGuesses = [];
 
-var guesses = [];
+//TODO Build magic word and player placeholder word dynamically...
+var magicWord = ["R", "O", "C", "K"];
+var playerWord = ["-", "-", "-", "-"];
+var judge;
 
 // 5) create onkey listener
 document.onkeyup = function (event) {
@@ -11,22 +16,31 @@ document.onkeyup = function (event) {
     // 3) build masked string of proper length for the word
     // 4) initialize guesses to 13
 
-    // 6) when user presses key
+    // 6) when player presses key
     // Determines which key was pressed.
-    var userGuess = event.key.toUpperCase();
+    var playerGuess = event.key.toUpperCase();
 
     // - ignore non-alphabet - ascii (65-90)
-    if (userGuess.charCodeAt(0) >= 65 && userGuess.charCodeAt(0) <= 90) {
-        // - ignore previous guesses
-        if (guesses.indexOf(userGuess) < 0) {
-            // - reduce guess count
-            // - if in word, reveal letter in word 
-            // - if not in word, add to guesses
-            guesses.push(userGuess);
-            document.querySelector("#guesses").innerHTML += userGuess + " ";
-            // - if guess count is 0, end game
-            document.querySelector("#guesses-left").innerHTML = (13 - guesses.length);
+    if (playerGuess.charCodeAt(0) >= 65 && playerGuess.charCodeAt(0) <= 90) {
+        var ltrPos = magicWord.indexOf(playerGuess);
+        if (ltrPos >= 0) {
+            playerWord[ltrPos] = magicWord[ltrPos];
+            judge = "";
+            playerWord.forEach(function (element) {
+                judge += element + " ";
+            });
+            document.querySelector("#hidden-word").innerHTML = judge;
         }
+        // // - ignore previous guesses
+        // if (guesses.indexOf(playerGuess) < 0) {
+        //     // - reduce guess count
+        //     // - if in word, reveal letter in word 
+        //     // - if not in word, add to guesses
+        //     wrongGuesses.push(playerGuess);
+        //     document.querySelector("#guesses").innerHTML += playerGuess + " ";
+        //     // - if guess count is 0, end game
+        //     document.querySelector("#guesses-left").innerHTML = guesses;
+        // }
     }
 
     // - if word revealed, add to wins
