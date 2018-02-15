@@ -4,19 +4,17 @@ var wordlist = ["rock", "paper", "scissors"];
 
 //TODO: Build magic word and player placeholder word dynamically...
 // 2) randomly select first word (array of characters?)
-var magicWord = ["R", "O", "C", "K"];
-
 var winCount = 0;
 var gameover = true;
 
 //These are initialized in the setupGame function, called at game start...
-var guesses, playerWord, wrongGuesses;
+var guesses, playerWord, magicWord, wrongGuesses;
 
 promptToPlay("Press any key to begin...");
 
 // 5) create onkey listener
 document.onkeyup = function (event) {
-
+    debugger;
     // 6) when player presses key
     var currentGuess = event.key.toUpperCase();
 
@@ -94,11 +92,6 @@ function displayGuess(maskedWord) {
     document.querySelector("#hidden-word").innerHTML = judge;
 }
 
-function setPlayerWord(word) {
-    // TODO: actually build proper length array
-    // 3) build masked string of proper length for the word
-    return ["-", "-", "-", "-"]
-}
 
 function setUpGame() {
 
@@ -106,11 +99,35 @@ function setUpGame() {
     guesses = 13;
     wrongGuesses = [];
     document.querySelector("#guesses").innerHTML = "";
-    playerWord = setPlayerWord("rock");
+    magicWord = buildMagicWord()
+    playerWord = hidePlayerWord(magicWord);
     displayGuess(playerWord);
     promptToPlay("Press any letter to play...");
 }
 
 function promptToPlay(message) {
     document.querySelector("#game-alert").innerHTML = message;
+}
+
+function hidePlayerWord(word) {
+    // 3) build masked string of proper length for the word
+    var hideWord = ["-"];
+    for (i = 1; i < word.length; i++) {
+        hideWord.push("-");
+    }
+    return hideWord;
+}
+
+function buildMagicWord() {
+    var word = pickWord();
+    var magic = [""];
+    magic.pop();
+    for (i = 0; i < word.length; i++) {
+        magic.push(word.charAt(i).toUpperCase());
+    }
+    return magic;
+}
+
+function pickWord() {
+    return wordlist[Math.floor(Math.random() * wordlist.length)];
 }
