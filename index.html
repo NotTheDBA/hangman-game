@@ -9,22 +9,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="assets/javascript/game.js"></script>
 </head>
 
 <body>
+    <!-- TODO: Style game -->
     <section>
         <p>
-            <span id="game-alert">Press any key to get started!</span>
+            <span id="game-alert"></span>
         </p>
         <p>
             <span>Wins:</span>
-            <span id="win-count"></span>
+            <span id="win-count">0</span>
         </p>
         <p>Current Word</p>
         <!-- Word starts as hidden, letters are revealed as guessed -->
         <p>
-            <span id="hidden-word">_ _ _ _ _</span>
+            <span id="hidden-word"></span>
         </p>
         <p>Number of Guesses Remaining</p>
         <p>
@@ -32,13 +32,15 @@
                 <!-- Guesses start at 13, and count down -->
             </span>
         </p>
-        <p>Letters Already Guessed</p>
+        <p>Missed Guesses</p>
         <p>
             <span id="guesses">
                 <!-- Used letters are listed here -->
             </span>
         </p>
     </section>
+    <!-- placing last to ensure dom is loaded (vanilla js) -->
+    <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>
