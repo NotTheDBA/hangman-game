@@ -2,7 +2,6 @@
 //  1) create list of words
 var wordlist = ["rock", "paper", "scissors"];
 
-//TODO: Build magic word and player placeholder word dynamically...
 // 2) randomly select first word (array of characters?)
 var winCount = 0;
 var gameover = true;
@@ -32,8 +31,12 @@ document.onkeyup = function (event) {
                 var ltrPos = magicWord.indexOf(currentGuess);
 
                 if (ltrPos >= 0) {
-                    // - if in word, reveal letter in word 
-                    playerWord[ltrPos] = magicWord[ltrPos];
+                    while (ltrPos >= 0) {
+                        // - if in word, reveal letter in word 
+                        playerWord[ltrPos] = magicWord[ltrPos];
+                        ltrPos++;
+                        ltrPos = magicWord.indexOf(currentGuess, ltrPos)
+                    }
                     displayGuess(playerWord);
 
                 } else {
@@ -81,7 +84,7 @@ function addToGuesses(currentGuess) {
     wrongGuesses.push(currentGuess);
     document.querySelector("#guesses").innerHTML += currentGuess + " ";
     guesses--;
-    document.querySelector("#guesses-left").innerHTML = guesses;
+    displayGuessCount();
 }
 
 function displayGuess(maskedWord) {
@@ -92,6 +95,9 @@ function displayGuess(maskedWord) {
     document.querySelector("#hidden-word").innerHTML = judge;
 }
 
+function displayGuessCount() {
+    document.querySelector("#guesses-left").innerHTML = guesses;
+}
 
 function setUpGame() {
 
@@ -102,6 +108,7 @@ function setUpGame() {
     magicWord = buildMagicWord()
     playerWord = hidePlayerWord(magicWord);
     displayGuess(playerWord);
+    displayGuessCount();
     promptToPlay("Press any letter to play...");
 }
 
