@@ -72,7 +72,10 @@ var gameover = true;
 //These are initialized in the setupGame function, called at game start...
 var guesses, playerWord, magicWord, wrongGuesses;
 
-document.querySelector("#js-guage").style.color = "green";
+document.querySelector("#js-guage").className = "btn btn-success";
+
+
+
 promptToPlay("Press any key to begin...");
 
 // 5) create onkey listener
@@ -136,13 +139,14 @@ document.onkeyup = function (event) {
 
 function updateGauge() {
     var guage = document.querySelector("#js-guage").innerHTML;
-    guage = "j";
     guage = guage.substring(0, guage.length - 1);
     document.querySelector("#js-guage").innerHTML = guage;
-    if (guage.length < 4) {
-        document.querySelector("#js-guage").style.color = "firebrick ";
+    if (guage.length === 0) {
+        document.querySelector("#js-guage").className = "";
+    } else if (guage.length < 4) {
+        document.querySelector("#js-guage").className = "btn btn-danger";
     } else if (guage.length < 8) {
-        document.querySelector("#js-guage").style.color = "gold";
+        document.querySelector("#js-guage").className = "btn btn-warning";
     }
 
 }
