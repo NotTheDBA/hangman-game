@@ -72,11 +72,12 @@ var gameover = true;
 //These are initialized in the setupGame function, called at game start...
 var guesses, playerWord, magicWord, wrongGuesses;
 
+document.querySelector("#js-guage").style.color = "green";
 promptToPlay("Press any key to begin...");
 
 // 5) create onkey listener
 document.onkeyup = function (event) {
-    debugger;
+
     // 6) when player presses key
     var currentGuess = event.key.toUpperCase();
 
@@ -110,6 +111,7 @@ document.onkeyup = function (event) {
                 // check if end of game
                 // - if guess count is 0, 
                 if (guesses === 0) {
+                    updateGauge();
                     //Declare loser
                     declareFinal("Sorry, you lose!")
                 }
@@ -132,13 +134,31 @@ document.onkeyup = function (event) {
     }
 }
 
+function updateGauge() {
+    var guage = document.querySelector("#js-guage").innerHTML;
+    guage = "j";
+    guage = guage.substring(0, guage.length - 1);
+    document.querySelector("#js-guage").innerHTML = guage;
+    if (guage.length < 4) {
+        document.querySelector("#js-guage").style.color = "firebrick ";
+    } else if (guage.length < 8) {
+        document.querySelector("#js-guage").style.color = "gold";
+    }
+
+}
+
+
 function incrementWins() {
     winCount++;
     document.querySelector("#win-count").innerHTML = winCount;
 }
 
 function declareFinal(prompt) {
-    prompt += "<br>Press any key to play again."
+    if (document.querySelector("#js-guage").innerHTML.length === 0) {
+        prompt = "Sorry!  Try again later.";
+    } else {
+        prompt += "<br>Press any key to play again."
+    }
     gameover = true;
     promptToPlay(prompt);
 }
@@ -164,6 +184,10 @@ function displayGuessCount() {
 
 function setUpGame() {
 
+    if (document.querySelector("#js-guage").innerHTML.length === 0) {
+        // short circuit if gauge is empty
+        return;
+    }
     gameover = false;
     guesses = 13;
     wrongGuesses = [];
