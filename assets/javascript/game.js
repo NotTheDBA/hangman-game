@@ -67,7 +67,8 @@ var wordlist = ["do",
 
 // 2) randomly select first word (array of characters?)
 var winCount = 0;
-var gameover = true;
+var gameOver = true;
+var gameFinal = false;
 
 //These are initialized in the setupGame function, called at game start...
 var guesses, playerWord, magicWord, wrongGuesses;
@@ -76,16 +77,19 @@ document.querySelector("#js-guage").className = "btn btn-success";
 
 
 
-promptToPlay("Press any key to begin...");
+promptToPlay("Press any key to begin...", "alert-info");
 
 // 5) create onkey listener
 document.onkeyup = function (event) {
 
     // 6) when player presses key
+    // Determines which key was pressed.
     var currentGuess = event.key.toUpperCase();
 
-    // Determines which key was pressed.
-    if (gameover) {
+    debugger;
+    if (gameFinal) {
+        return;
+    } else if (gameOver) {
         //wait for any key to start
         setUpGame();
     } else {
@@ -116,7 +120,7 @@ document.onkeyup = function (event) {
                 if (guesses === 0) {
                     updateGauge();
                     //Declare loser
-                    declareFinal("Sorry, you lose!")
+                    declareFinal("Sorry, you lose!", "alert-warning")
                 }
                 // - if word revealed, add to wins
                 if (playerWord.indexOf("-") < 0) {
@@ -124,15 +128,15 @@ document.onkeyup = function (event) {
                     incrementWins();
 
                     //Declare winner
-                    declareFinal("WINNER!")
+                    declareFinal("WINNER!", "alert-success")
 
                 }
 
             } else {
-                promptToPlay("Guess again...");
+                promptToPlay("Guess again...", "alert-light");
             }
         } else {
-            promptToPlay("Press any letter to play...");
+            promptToPlay("Press any letter to play...", "alert-info");
         }
     }
 }
@@ -151,20 +155,26 @@ function updateGauge() {
 
 }
 
-
 function incrementWins() {
     winCount++;
     document.querySelector("#win-count").innerHTML = winCount;
 }
 
-function declareFinal(prompt) {
+function declareFinal(prompt, alert) {
+    debugger;
     if (document.querySelector("#js-guage").innerHTML.length === 0) {
         prompt = "Sorry!  Try again later.";
+        alert = "alert-danger";
+        gameFinal = true;
+    } else if (winCount >= 10) {
+        prompt = "AMAZING!  You are a JavaScript Superstar!";
+        alert = "alert-success"
+        gameFinal = true;
     } else {
-        prompt += "<br>Press any key to play again."
+        prompt += " Press any key to play again."
     }
-    gameover = true;
-    promptToPlay(prompt);
+    gameOver = true;
+    promptToPlay(prompt, alert);
 }
 
 function addToGuesses(currentGuess) {
@@ -192,7 +202,7 @@ function setUpGame() {
         // short circuit if gauge is empty
         return;
     }
-    gameover = false;
+    gameOver = false;
     guesses = 13;
     wrongGuesses = [];
     document.querySelector("#guesses").innerHTML = "";
@@ -200,11 +210,13 @@ function setUpGame() {
     playerWord = hidePlayerWord(magicWord);
     displayGuess(playerWord);
     displayGuessCount();
-    promptToPlay("Press any letter to play...");
+    promptToPlay("Press any letter to play...", "alert-success");
 }
 
-function promptToPlay(message) {
+function promptToPlay(message, alert) {
     document.querySelector("#game-alert").innerHTML = message;
+    document.querySelector("#game-alert").className = "alert ";
+    document.querySelector("#game-alert").className += alert;
 }
 
 function hidePlayerWord(word) {

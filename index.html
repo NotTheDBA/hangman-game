@@ -7,42 +7,96 @@
     <title>jsKeyword-Guesser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap-sketchy.min.css" />
+    <style>
+        body {
+            max-width: 50rem;
+        }
+
+        #alert,
+        .jumbotron {
+            text-align: center;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
-        <h1>jsKeyword-Guesser</h1>
-        <h3>The Letter-guessing Game for
-            <span id="js-guage">JavaScript</span> Keywords</h3>
+        <div class="jumbotron">
+            <h1>jsKeyword-Guesser</h1>
+            <h3>The Letter-guessing Game for
+                <span id="js-guage">JavaScript</span> Keywords</h3>
+        </div>
     </header>
-    <!-- TODO: Style game -->
-    <section>
-        <p>
-            <span id="game-alert"></span>
-        </p>
-        <p>
-            <span>Wins:</span>
-            <span id="win-count">0</span>
-        </p>
-        <p>Current Word</p>
-        <!-- Word starts as hidden, letters are revealed as guessed -->
-        <p>
-            <span id="hidden-word"></span>
-        </p>
-        <p>Number of Guesses Remaining</p>
-        <p>
-            <span id="guesses-left">
-                <!-- Guesses start at 10, and count down -->
-            </span>
-        </p>
-        <p>Missed Guesses</p>
-        <p>
-            <span id="guesses">
-                <!-- Used letters are listed here -->
-            </span>
-        </p>
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <p id="alert">
+                    <span id="game-alert"></span>
+                </p>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card border-info mb-3">
+                    <div class="card-header">Current Word</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <span id="hidden-word">
+                                <!-- Word starts as hidden, letters are revealed as guessed -->
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card border-danger mb-3">
+                    <div class="card-header">Missed Guesses</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <span id="guesses">
+                                <!-- Used letters are listed here -->
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <div class="card border-warning mb-3">
+                    <div class="card-body">
+                        <!-- Guesses start at 13, and count down -->
+                        <p class="card-text">Guesses:
+                            <span id="guesses-left">13</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card border-success mb-3">
+                    <div class="card-body">
+                        <p class="card-text">Wins:
+                            <span id="win-count">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
     </section>
     <!-- placing last to ensure dom is loaded (vanilla js) -->
     <script src="assets/javascript/game.js"></script>
