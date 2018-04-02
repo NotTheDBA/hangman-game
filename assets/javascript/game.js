@@ -77,10 +77,10 @@ document.querySelector("#js-guage").className = "btn btn-success";
 
 
 
-promptToPlay("Press any key to begin...", "alert-info");
+actionMessage("Press any key to begin...", "alert-info");
 
 // 5) create onkey listener
-document.onkeyup = function (event) {
+document.onkeyup = function(event) {
 
     // 6) when player presses key
     // Determines which key was pressed.
@@ -133,10 +133,10 @@ document.onkeyup = function (event) {
                 }
 
             } else {
-                promptToPlay("Guess again...", "alert-light");
+                actionMessage("Guess again...", "alert-light");
             }
         } else {
-            promptToPlay("Press any letter to play...", "alert-info");
+            actionMessage("Press any letter to play...", "alert-info");
         }
     }
 }
@@ -174,7 +174,7 @@ function declareFinal(prompt, alert) {
         prompt += " Press any key to play again."
     }
     gameOver = true;
-    promptToPlay(prompt, alert);
+    actionMessage(prompt, alert);
 }
 
 function addToGuesses(currentGuess) {
@@ -186,7 +186,7 @@ function addToGuesses(currentGuess) {
 
 function displayGuess(maskedWord) {
     var judge = "";
-    maskedWord.forEach(function (element) {
+    maskedWord.forEach(function(element) {
         judge += element + " ";
     });
     document.querySelector("#hidden-word").innerHTML = judge;
@@ -210,13 +210,13 @@ function setUpGame() {
     playerWord = hidePlayerWord(magicWord);
     displayGuess(playerWord);
     displayGuessCount();
-    promptToPlay("Press any letter to play...", "alert-success");
+    actionMessage("Press any letter to play...", "alert-success");
 }
 
-function promptToPlay(message, alert) {
-    document.querySelector("#game-alert").innerHTML = message;
-    document.querySelector("#game-alert").className = "alert ";
-    document.querySelector("#game-alert").className += alert;
+function actionMessage(message, alert) {
+    document.querySelector("#action-prompt").innerHTML = message;
+    document.querySelector("#action-prompt").className = "alert ";
+    document.querySelector("#action-prompt").className += alert;
 }
 
 function hidePlayerWord(word) {
